@@ -23,18 +23,25 @@
 #' @param api_access_lvl The twitter API access level of the user's bearer token.
 #' Options are 'essential' or 'academic'. Default is 'essential'
 #'
-#' @return
+#' @return dataframe
+#' A dataframe of retrieved tweets based on user's selected parameters.
+#' (Data will be stored as a Json file)
 #' @export
 #'
 #' @examples
-get_store <- function(    bearer_token,
-                          keyword,
-                          start_date,
-                          end_date,
-                          max_results=25,
-                          store_path="output/",
-                          store_csv=False,
-                          include_public_metrics=True,
-                          api_access_lvl="essential") {
+#' bearer_token <- Sys.getenv("BEARER_TOKEN")
+#' tweets <- get_store(bearer_token,keyword="vancouver",start_date="2022-01-12",
+#' end_date="2022-01-17")
+#' tweets
+get_store <- function(
+  bearer_token,
+  keyword,
+  start_date,
+  end_date,
+  max_results=25,
+  store_path="output/",
+  store_csv=False,
+  include_public_metrics=TRUE,
+  api_access_lvl="essential") {
 
 }
