@@ -3,10 +3,6 @@
 
 # rtweetlytics
 
-This package would retrieve tweets on a required topic and time frame, stores them, performs data cleaning, data analysis, and plotting.
-
-# rtweetlytics
-
 <!-- badges: start -->
 <!-- badges: end -->
 
