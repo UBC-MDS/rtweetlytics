@@ -48,7 +48,35 @@ get_store <- function(
   include_public_metrics=TRUE,
   api_access_lvl="essential") {
 
-  bearer_token <- Sys.getenv("BEARER_TOKEN")
   headers <- c(`Authorization` = sprintf('Bearer %s', bearer_token))
 
+  params <- list("start_time"= paste0(start_date, "T00:00:00.000Z"),
+                 "end_time"= paste0(end_date, "T00:00:00.000Z"),
+                 "max_results"= paste0(max_results),
+                 "expansions"= "author_id,in_reply_to_user_id",
+                 "tweet.fields"= "id,text,author_id,in_reply_to_user_id,conversation_id,created_at,lang,public_metrics,referenced_tweets,reply_settings,source",
+                 "user.fields"= "id,name,username,created_at,description,public_metrics,verified,entities",
+                 "place.fields"= "full_name,id,country,country_code,name,place_type",
+                 "next_token"= {})
+
+  url_handle <-
+    paste0('https://api.twitter.com/2/tweets/search/recent?query=', keyword)
+
+  response <-
+    httr::GET(url = url_handle,
+              httr::add_headers(.headers = headers),
+              query = params)
+  obj <- httr::content(response, as = "text")
+  print(obj)
+
 }
+
+bearer_token <- Sys.getenv("BEARER_TOKEN")
+get_store(
+  bearer_token = bearer_token,
+  keyword = "omicron lang:en",
+  start_date = "2022-01-20",
+  end_date = "2022-01-23"
+  )
+
+
