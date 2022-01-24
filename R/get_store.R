@@ -87,13 +87,3 @@ get_store <- function(
 
   return(tweets_df)
 }
-
-bearer_token <- Sys.getenv("BEARER_TOKEN")
-tweets <- get_store(
-  bearer_token = bearer_token,
-  keyword = "omicron lang:en",
-  start_date = "2022-01-20",
-  end_date = "2022-01-23"
-  )
-tweets
-
