@@ -43,14 +43,23 @@ get_store <- function(
   start_date,
   end_date,
   max_results=25,
-  store_path="output/",
-  store_csv=False,
+  store_path="/output/",
+  store_csv=TRUE,
   include_public_metrics=TRUE,
   api_access_lvl="essential") {
 
+  # set authorization header for API
   headers <- c(`Authorization` = sprintf('Bearer %s', bearer_token))
 
-  params <- list("start_time"= paste0(start_date, "T00:00:00.000Z"),
+  # check access level and switch url accordingly. recent will can only search the past 7 days.
+  if (api_access_lvl == "essential") {
+    search_url = "https://api.twitter.com/2/tweets/search/recent?query="
+  } else if (api_access_lvl == "academic") {
+    search_url = "https://api.twitter.com/2/tweets/search/all"
+  }
+
+  # set request parameters
+  query_params <- list("start_time"= paste0(start_date, "T00:00:00.000Z"),
                  "end_time"= paste0(end_date, "T00:00:00.000Z"),
                  "max_results"= paste0(max_results),
                  "expansions"= "author_id,in_reply_to_user_id",
@@ -60,23 +69,31 @@ get_store <- function(
                  "next_token"= {})
 
   url_handle <-
-    paste0('https://api.twitter.com/2/tweets/search/recent?query=', keyword)
+    paste0(search_url, keyword)
 
-  response <-
+  tweet_response <-
     httr::GET(url = url_handle,
               httr::add_headers(.headers = headers),
-              query = params)
-  obj <- httr::content(response, as = "text")
-  print(obj)
+              query = query_params)
+  tweet_text <- httr::content(tweet_response, as = "text")
+  tweets_df <- fromJSON(tweet_text, flatten = TRUE)
+  tweets_df <- as.data.frame(tweets_df["data"])
 
+  if (store_csv == TRUE) {
+    dir.create("output")
+    tweets_df = data.frame(lapply(tweets_df, as.character), stringsAsFactors=FALSE)
+    write.csv(tweets_df, paste0(getwd(), store_path, "tweets_response.csv"), row.names = FALSE)
+  }
+
+  return(tweets_df)
 }
 
 bearer_token <- Sys.getenv("BEARER_TOKEN")
-get_store(
+tweets <- get_store(
   bearer_token = bearer_token,
   keyword = "omicron lang:en",
   start_date = "2022-01-20",
   end_date = "2022-01-23"
   )
-
+tweets
 
