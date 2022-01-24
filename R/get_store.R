@@ -1,3 +1,7 @@
+require(httr)
+require(jsonlite)
+require(dplyr)
+
 #' Retrieves all tweets of a keyword provided by the user through the Twitter API.
 #' Alternatively the user can directly read from a structured Json response based
 #' on the Twitter API.
@@ -43,5 +47,8 @@ get_store <- function(
   store_csv=False,
   include_public_metrics=TRUE,
   api_access_lvl="essential") {
+
+  bearer_token <- Sys.getenv("BEARER_TOKEN")
+  headers <- c(`Authorization` = sprintf('Bearer %s', bearer_token))
 
 }
