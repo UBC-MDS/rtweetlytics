@@ -10,13 +10,13 @@ analytics(input_file)
 \item{input_file}{A character vector with, at most, one element.}
 }
 \value{
-A dataframe vector.
+A tibble including metrics of analytics.
 }
 \description{
 Analyze the clean data frame extracted from twitter website
 }
 \examples{
-x <- "Hello world"
-analytics("Hello")
+x <- "df.csv"
+analytics("x")
 
 }
