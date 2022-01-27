@@ -54,13 +54,22 @@ get_store <- function(
   test_that("Invalid parameter input type:", {
     expect_true(is.character(bearer_token), "bearer_token must be entered as a string")
     expect_true(is.character(keyword), "keyword must be entered as a string")
-    expect_true(is.character(start_date), "keyword must be entered as a string")
+    expect_true(is.character(start_date), "start_date must be entered as a string")
+    expect_true(is.character(end_date), "end_date must be entered as a string")
+    expect_true(is.numeric(max_results), "Invalid parameter input type: max_results must be entered as an integer")
+    expect_true(is.character(store_path), "Invalid parameter input type: store_path must be entered as a string")
+    expect_true(is.logical(store_csv), "Invalid parameter input type: store_csv must be entered as a boolean")
   })
 
   test_that("Invalid parameter input value:", {
     expect_true(
-      as.Date(start_date) %within% interval((today() - 7), as.Date(end_date)),
-                "invalid parameter input value: api access level of essential can only search for tweets in the past 7 days")
+      (as.Date(start_date) %within% interval((today() - 7), as.Date(end_date)) & (api_access_lvl == "essential")),
+                "api access level of essential can only search for tweets in the past 7 days")
+    expect_true(
+      (as.Date(end_date) %within% interval(as.Date(start_date), today())),
+      "end date must be in the range of the start date and today")
+    expect_true(api_access_lvl %in% c("essential", "academic"),
+      "Invalid parameter input value: api_access_lvl must be of either string essential or academic")
   })
 
   # set authorization header for API
