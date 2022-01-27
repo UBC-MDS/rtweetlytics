@@ -1,3 +1,7 @@
+require(httr)
+require(jsonlite)
+require(dplyr)
+
 #' Retrieves all tweets of a keyword provided by the user through the Twitter API.
 #' Alternatively the user can directly read from a structured Json response based
 #' on the Twitter API.
@@ -39,9 +43,47 @@ get_store <- function(
   start_date,
   end_date,
   max_results=25,
-  store_path="output/",
-  store_csv=False,
+  store_path="/output/",
+  store_csv=TRUE,
   include_public_metrics=TRUE,
   api_access_lvl="essential") {
 
+  # set authorization header for API
+  headers <- c(`Authorization` = sprintf('Bearer %s', bearer_token))
+
+  # check access level and switch url accordingly. recent will can only search the past 7 days.
+  if (api_access_lvl == "essential") {
+    search_url = "https://api.twitter.com/2/tweets/search/recent?query="
+  } else if (api_access_lvl == "academic") {
+    search_url = "https://api.twitter.com/2/tweets/search/all"
+  }
+
+  # set request parameters
+  query_params <- list("start_time"= paste0(start_date, "T00:00:00.000Z"),
+                 "end_time"= paste0(end_date, "T00:00:00.000Z"),
+                 "max_results"= paste0(max_results),
+                 "expansions"= "author_id,in_reply_to_user_id",
+                 "tweet.fields"= "id,text,author_id,in_reply_to_user_id,conversation_id,created_at,lang,public_metrics,referenced_tweets,reply_settings,source",
+                 "user.fields"= "id,name,username,created_at,description,public_metrics,verified,entities",
+                 "place.fields"= "full_name,id,country,country_code,name,place_type",
+                 "next_token"= {})
+
+  url_handle <-
+    paste0(search_url, keyword)
+
+  tweet_response <-
+    httr::GET(url = url_handle,
+              httr::add_headers(.headers = headers),
+              query = query_params)
+  tweet_text <- httr::content(tweet_response, as = "text")
+  tweets_df <- fromJSON(tweet_text, flatten = TRUE)
+  tweets_df <- as.data.frame(tweets_df["data"])
+
+  if (store_csv == TRUE) {
+    dir.create("output")
+    tweets_df = data.frame(lapply(tweets_df, as.character), stringsAsFactors=FALSE)
+    write.csv(tweets_df, paste0(getwd(), store_path, "tweets_response.csv"), row.names = FALSE)
+  }
+
+  return(tweets_df)
 }
