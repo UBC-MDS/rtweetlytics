@@ -1,6 +1,8 @@
 require(httr)
 require(jsonlite)
 require(dplyr)
+require(testthat)
+require(lubridate)
 
 #' Retrieves all tweets of a keyword provided by the user through the Twitter API.
 #' Alternatively the user can directly read from a structured Json response based
@@ -47,6 +49,19 @@ get_store <- function(
   store_csv=TRUE,
   include_public_metrics=TRUE,
   api_access_lvl="essential") {
+
+  # parameter tests
+  test_that("Invalid parameter input type:", {
+    expect_true(is.character(bearer_token), "bearer_token must be entered as a string")
+    expect_true(is.character(keyword), "keyword must be entered as a string")
+    expect_true(is.character(start_date), "keyword must be entered as a string")
+  })
+
+  test_that("Invalid parameter input value:", {
+    expect_true(
+      as.Date(start_date) %within% interval((today() - 7), as.Date(end_date)),
+                "invalid parameter input value: api access level of essential can only search for tweets in the past 7 days")
+  })
 
   # set authorization header for API
   headers <- c(`Authorization` = sprintf('Bearer %s', bearer_token))
