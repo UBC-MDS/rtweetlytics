@@ -23,17 +23,22 @@
 #'
 #'
 clean_tweets <- function(file_path, tokenization=TRUE, word_count=TRUE) {
+  # Checking for valid input parameters
+  if(!data_types["file_path"] == "character"){
+    stop("'input_file' must be of chr type")
+  }
+
+  if(!data_types(tokenization)=='logical'){
+    stop("'tokenization' must be of logical type")
+  }
+
+  if(!data_types(word_count)=='logical'){
+    stop("'word_count' must be of logical type")
+  }
+
   # Reading in the raw dataframe and removing redundant columns
   tweets_df <- read_csv(file_path) |>
     subset(select = -c(public_metrics))
-
-  # Checking for valid input parameters
-  if not isinstance(file_path, str):
-    raise Exception("'input_file' must be of str type")
-  if not isinstance(tokenization, bool):
-    raise Exception("'tokenization' must be of bool type")
-  if not isinstance(word_count, bool):
-    raise Exception("'word_count' must be of bool type")
 
   for (i in 1:nrow(tweets_df)) {
 
