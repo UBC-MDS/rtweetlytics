@@ -18,7 +18,6 @@
 #'        Dataframe
 #'        Dataframe containing data on cleaned tweets
 #' .
-#'
 #' @examples
 #' clean_tweets("tweets_response.csv")
 #'
