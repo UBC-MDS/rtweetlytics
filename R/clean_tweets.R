@@ -3,7 +3,7 @@
 #' punctuation, hastags and hastag counts
 #'
 #' @param file_path
-#'        chr
+#'        character
 #'        File path to csv file containing tweets data
 #'
 #' @param tokenization
