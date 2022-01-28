@@ -15,6 +15,12 @@ require(sentimentr)
 #' analytics("x")
 #'
 analytics <- function(input_file) {
+  
+    #testing the parameter type
+    test_that("Invalid input type", {
+      expect_true(is.character(input_file), "Please enter the path of dataset as a string.")
+      })
+  
     # reading dataframe
     df <- read.csv(input_file)
 
