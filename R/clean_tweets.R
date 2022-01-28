@@ -24,15 +24,15 @@
 #'
 clean_tweets <- function(file_path, tokenization=TRUE, word_count=TRUE) {
   # Checking for valid input parameters
-  if(!data_types["file_path"] == "character"){
-    stop("'input_file' must be of chr type")
+  if(!is.character(file_path)){
+    stop("'input_file' must be of character type")
   }
 
-  if(!data_types(tokenization)=='logical'){
+  if(!is.logical(tokenization)){
     stop("'tokenization' must be of logical type")
   }
 
-  if(!data_types(word_count)=='logical'){
+  if(!is.logical(word_count)){
     stop("'word_count' must be of logical type")
   }
 
@@ -40,6 +40,12 @@ clean_tweets <- function(file_path, tokenization=TRUE, word_count=TRUE) {
   tweets_df <- read_csv(file_path) |>
     subset(select = -c(public_metrics))
 
+  # Checking for 'df' to be a dataframe
+  if(!is.data.frame(tweets_df)){
+    stop("'df' must be of non-NULL dataframe type.")
+  }
+
+  # Iterating through each row
   for (i in 1:nrow(tweets_df)) {
 
     # Extracting tweet text from text column
