@@ -11,6 +11,6 @@
 #'plot <- plotting(df, 'col_text')
 #'
 #'
-plotting <- function(df, "col_text") {
+plotting <- function(df, col_text) {
 
 }
