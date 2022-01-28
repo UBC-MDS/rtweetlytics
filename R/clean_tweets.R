@@ -1,3 +1,10 @@
+require(httr)
+require(jsonlite)
+require(dplyr)
+require(testthat)
+require(lubridate)
+require(tidyverse)
+require(stringr)
 #' Cleans the text in the tweets and returns as new columns in the dataframe.
 #' The cleaning process includes converting into lower case, removal of
 #' punctuation, hastags and hastag counts
