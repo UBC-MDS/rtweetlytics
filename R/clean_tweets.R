@@ -26,7 +26,6 @@ require(stringr)
 #'        Dataframe containing data on cleaned tweets
 #' .
 #' @examples
-#' clean_tweets("output/tweets_response.csv")
 #'
 #'
 clean_tweets <- function(file_path, tokenization=TRUE, word_count=TRUE) {

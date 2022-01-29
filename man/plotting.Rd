@@ -18,8 +18,3 @@ A \code{ggplo2} plot
 \description{
 \code{plotting} creates a horizontal bar chart using \code{ggplot2} syntax.
 }
-\examples{
-tweets_df <- read_csv("output/tweets_response.csv")
-hash_plot <- plotting(tweets_df, text)
-
-}

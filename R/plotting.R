@@ -15,12 +15,7 @@ require(dplyr)
 #' @return hash_plot
 #'         A `ggplo2` plot
 #'
-#' @examples
-#' tweets_df <- read_csv("output/tweets_response.csv")
-#' hash_plot <- plotting(tweets_df, text)
-#'
-
-# The `plotting` function
+#' @examples 
 plotting <- function(tweets_df, text) {
   if (!is.data.frame(tweets_df)) {
     stop("tweets_df should be a data frame")
@@ -29,14 +24,13 @@ plotting <- function(tweets_df, text) {
     stop("'text' should be character type")
   }
   
-  hashtag_pat <- "#[a-zA-Z0-9_-???\\.]+"
-  hashtag <- str_extract_all(tweets_df$text, hashtag_pat)
-  hashtag_word <- unlist(hashtag)
-  hash_plot <- as.data.frame(hashtag_word) %>%
-    count(hashtag_word, sort = TRUE) %>%
-    mutate(hashtag_word = reorder(hashtag_word, n)) %>%
-    top_n(15) %>%
-    ggplot(aes(x = hashtag_word, y = n)) +
+  hashtag_pat <- "#[A-Za-z0-9_]+"
+  hashtag <- str_extract_all(tweets_df$data.text, hashtag_pat)
+  hash_plot <- hashtag %>% unlist() |> as.data.frame() |> 
+    count()  %>%
+    arrange(desc(freq)) %>%
+    top_n(15) %>% mutate(hashtag = hashtag.....unlist.. ) |> 
+    ggplot(aes(x = hashtag.....unlist.., y = freq)) +
     geom_col() +
     coord_flip() +
     labs(x = "Count",
