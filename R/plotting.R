@@ -1,5 +1,5 @@
 require(tidyverse)
-require(plyr)
+require(dplyr)
 
 #' Plot the most frequently occurring hash tags
 #'
