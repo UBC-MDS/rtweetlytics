@@ -60,9 +60,3 @@ on the Twitter API.
 If the user plans to access to the Twitter API they must have a personal bearer
 token and store it as an environment variable to access it.
 }
-\examples{
-bearer_token <- Sys.getenv("BEARER_TOKEN")
-tweets <- get_store(bearer_token,keyword="vancouver",start_date="2022-01-12",
-end_date="2022-01-17")
-tweets
-}

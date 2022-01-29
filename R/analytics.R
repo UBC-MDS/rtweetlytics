@@ -9,18 +9,19 @@ require(testthat)
 #'
 #'
 #' @return A tibble including metrics of analytics.
-#' @export
 #'
-#' @examples
-#' analytics("output/tweets_response.csv")
+#'
+#' @examples 
+#' 
+#' 
 analytics <- function(input_file) {
-    # 
-    # #testing the parameter type
-    # test_that("Invalid input type", {
-    #   expect_true(is.character(input_file), "Please enter the path of dataset as a string.")
-    #   })
-    # 
-    # reading dataframe
+
+    #testing the parameter type
+    testthat::test_that("Invalid input type", {
+      testthat::expect_true(is.character(input_file), "Please enter the path of dataset as a string.")
+      })
+
+    #reading dataframe
     df <- read.csv(input_file)
 
     # counting number of like, retweet and comments

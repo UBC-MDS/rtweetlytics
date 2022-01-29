@@ -32,7 +32,6 @@ The cleaning process includes converting into lower case, removal of
 punctuation, hastags and hastag counts
 }
 \examples{
-clean_tweets("output/tweets_response.csv")
 
 
 }

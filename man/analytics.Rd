@@ -16,5 +16,6 @@ A tibble including metrics of analytics.
 Analyze the clean data frame extracted from twitter website
 }
 \examples{
-analytics("output/tweets_response.csv")
+
+
 }
