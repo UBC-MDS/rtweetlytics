@@ -31,6 +31,6 @@ test_clean_tweets <- function() {
 
   # Check if output dataframe contains the columns for cleaned data
   test_that('output dataframe does not contain the desired columns', {
-    expect_true(all(c("clean_tweets", "text" ) %in% colnames(df)))
+    expect_true(all(c("clean_tweets", "clean_tokens", "word_count" ) %in% colnames(df)))
   })
 }
