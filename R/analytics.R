@@ -1,6 +1,7 @@
 require(tidyverse)
 require(dplyr)
 require(sentimentr)
+require(testthat)
 
 #' Analyze the clean data frame extracted from twitter website
 #'
@@ -11,16 +12,14 @@ require(sentimentr)
 #' @export
 #'
 #' @examples
-#'x <- "df.csv"
-#' analytics("x")
-#'
+#' analytics("output/tweets_response.csv")
 analytics <- function(input_file) {
-  
-    #testing the parameter type
-    test_that("Invalid input type", {
-      expect_true(is.character(input_file), "Please enter the path of dataset as a string.")
-      })
-  
+    # 
+    # #testing the parameter type
+    # test_that("Invalid input type", {
+    #   expect_true(is.character(input_file), "Please enter the path of dataset as a string.")
+    #   })
+    # 
     # reading dataframe
     df <- read.csv(input_file)
 

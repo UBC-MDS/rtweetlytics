@@ -1,0 +1,27 @@
+Package: rtweetlytics
+Title: Analyzing the tweets for specific keyword
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Amir Shojakhani, Shiva Shankar Jena ,Mahmood Rahman, MAhsa Sarafrazi",
+           family = "MDS UBC",
+           role = c("aut", "cre"),
+           email = "ma.sarafrazi@gmail.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package would retrieve tweets on a required topic and time frame, stores them, performs data cleaning, data analysis, and plotting.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Config/testthat/edition: 3
+Imports: 
+    httr,
+    dplyr,
+    jsonlite,
+    testthat,
+    lubridate,
+    stringr,
+    plyr,
+    sentimentr
+Depends: 
+    tidyverse
