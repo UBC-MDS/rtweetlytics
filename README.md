@@ -53,6 +53,7 @@ Taking both the cleaned data frame from the clean() function and the returned di
 
 ## Dependencies
 
+
  • Imports: 
     httr,
     dplyr,
@@ -62,6 +63,7 @@ Taking both the cleaned data frame from the clean() function and the returned di
     stringr,
     plyr,
     sentimentr
+    
  • Depends: 
     tidyverse
 
