@@ -53,7 +53,17 @@ Taking both the cleaned data frame from the clean() function and the returned di
 
 ## Dependencies
 
- • TBD
+ • Imports: 
+    httr,
+    dplyr,
+    jsonlite,
+    testthat,
+    lubridate,
+    stringr,
+    plyr,
+    sentimentr
+ • Depends: 
+    tidyverse
 
 ## Usage
  TBD
