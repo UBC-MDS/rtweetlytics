@@ -26,7 +26,7 @@ require(stringr)
 #'        Dataframe containing data on cleaned tweets
 #' .
 #' @examples
-#' clean_tweets("tweets_response.csv")
+#' clean_tweets("output/tweets_response.csv")
 #'
 #'
 clean_tweets <- function(file_path, tokenization=TRUE, word_count=TRUE) {
@@ -44,8 +44,7 @@ clean_tweets <- function(file_path, tokenization=TRUE, word_count=TRUE) {
   }
 
   # Reading in the raw dataframe and removing redundant columns
-  tweets_df <- read_csv(file_path) |>
-    subset(select = -c(public_metrics))
+  tweets_df <- read_csv(file_path)
 
   # Checking for 'df' to be a dataframe
   if(!is.data.frame(tweets_df)){
@@ -56,7 +55,7 @@ clean_tweets <- function(file_path, tokenization=TRUE, word_count=TRUE) {
   for (i in 1:nrow(tweets_df)) {
 
     # Extracting tweet text from text column
-    tweet <- tweets_df$text[i]
+    tweet <- tweets_df$data.text[i]
 
     # Cleaning tweet
     clean_tweet <- tweet |>
