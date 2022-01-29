@@ -34,3 +34,4 @@ test_clean_tweets <- function() {
     expect_true(all(c("clean_tweets", "clean_tokens", "word_count" ) %in% colnames(df)))
   })
 }
+test_clean_tweets()

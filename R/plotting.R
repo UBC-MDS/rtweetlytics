@@ -28,8 +28,8 @@ plotting <- function(tweets_df, text) {
   if (!is.character(text)) {
     stop("'text' should be character type")
   }
-
-  hashtag_pat <- "#[a-zA-Z0-9_-ー\\.]+"
+  
+  hashtag_pat <- "#[a-zA-Z0-9_-???\\.]+"
   hashtag <- str_extract_all(tweets_df$text, hashtag_pat)
   hashtag_word <- unlist(hashtag)
   hash_plot <- as.data.frame(hashtag_word) %>%
@@ -42,6 +42,6 @@ plotting <- function(tweets_df, text) {
     labs(x = "Count",
          y = "Hashtag",
          title = "Top 15 Popular Hashtags")
-
+  
   return(hash_plot)
 }

@@ -1,4 +1,12 @@
 library(testthat)
 library(rtweetlytics)
+library(sentimentr)
+library(dplyr)
+library(tidyverse)
+library(plyr)
+library(lubridate)
+library(httr)
+library(jsonlite)
+library(stringr)
 
 test_check("rtweetlytics")
