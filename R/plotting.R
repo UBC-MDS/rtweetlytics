@@ -1,3 +1,6 @@
+require(tidyverse)
+require(plyr)
+
 #' Plot the most frequently occurring hash tags
 #'
 #' `plotting` creates a horizontal bar chart using `ggplot2` syntax.
@@ -40,4 +43,3 @@ plotting <- function(tweets_df, text) {
 
   return(hash_plot)
 }
-
