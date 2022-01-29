@@ -1,4 +1,5 @@
 require(tidyverse)
+require(plyr)
 require(dplyr)
 
 #' Plot the most frequently occurring hash tags
@@ -15,16 +16,17 @@ require(dplyr)
 #'         A `ggplo2` plot
 #'
 #' @examples
-#'hash_plot <- plotting(tweets_df, text)
+#' tweets_df <- read_csv("output/tweets_response.csv")
+#' hash_plot <- plotting(tweets_df, text)
 #'
 
 # The `plotting` function
 plotting <- function(tweets_df, text) {
   if (!is.data.frame(tweets_df)) {
-    stop("x should be a data frame")
+    stop("tweets_df should be a data frame")
   }
   if (!is.character(text)) {
-    astop("column should contain text")
+    stop("'text' should be character type")
   }
 
   hashtag_pat <- "#[a-zA-Z0-9_-ー\\.]+"
