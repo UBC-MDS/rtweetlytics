@@ -1,0 +1,110 @@
+---
+title: "Introduction to rtweetlytics"
+description: >
+    This a R package scraps twitter to collect data, clean, analyze and then finally plot the data
+author: Mahsa Sarafrazi, Shiva Shankar Jena, Amir Shojakhani, Mahmoodur Rahman
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to rtweetlytics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This document introduces you to **rtweetlytics** and it's functions, and shows you how to apply them. Once you’ve installed, read `vignette("Introduction to rtweetlytics")` to learn more.
+
+This document introduces you to the **rtweetlytics** package and all the functions inside it. Here to explore the package we have used data fetched from [twitter](https://twitter.com) as an example through `get_store()` function. Once you have installed the package read `vignette("Introduction to rtweetlytics")` to learn more about it.
+
+### Set up
+
+*To get access to the Twitter API and collect and store data in the form of csv, we will use functions from **rtweetlytics***
+
+# Overview
+
+The goal of **rtweetlytics** is to extract and analyze tweet and finally create meaningful plot. It provides functions to download and store data, clean tweets, analyze tweets and create plot. 
+
+The package is an assimilation of four independent functions:
+
+1.  `get_store()`: Extract data from twitter through calling API and provide csv file as output and create a dataframe. 
+
+2.  `clean_tweets()`: Cleans the text in the tweets and returns as new columns in the dataframe. The cleaning process includes converting into lower case, removal of punctuation, hastags and hastag counts.
+
+3.  `analytics()`: Analyze the clean data frame extracted from twitter website, and returns a tibble including metrics of analytics.
+
+4.  `plotting()`: The plotting function creates a bar-chart plot of most occurring hashtags.
+
+
+### Load the library
+
+```{r setup, eval = FALSE, warning = FALSE}
+library(rtweetlytics)
+```
+
+### 1. Downloading data and creating dataframe
+
+The first function in our library is the `rtweetlytics::get_store()`. This function will require tghe developer to obtain bearer token from the twitter API development website. 
+
+```{r download-data_1, eval = FALSE}
+
+tweets = rtweetlytics::get_store(
+            bearer_token,
+            keyword="vancouver",
+            start_date="2022-01-12",
+            end_date="2022-01-17")
+head(tweets)
+```
+
+```{r download-data_2, echo = FALSE}
+tweets <- read.csv("../output/tweets_response.csv")
+head(tweets,2)
+```
+
+### 2. Cleaning data
+
+The second function in our library is the `rtweetlytics::clean_tweets()`. This function cleans the data to gets tweet texts, word counts.
+
+```{r clean_tweet_1, eval = FALSE}
+PATH <- "../output/tweets_response.csv"
+tweets_df <- rtweetlytics::clean_tweets(PATH, tokenization=TRUE, word_count=TRUE)
+head(tweets_df)
+```
+
+```{r clean_tweet_2, echo = FALSE}
+clean_tweets <- read.csv("../output/clean_tweets.csv")
+head(clean_tweets,2)
+```
+
+
+### 3. Analyzing data 
+
+Our third function `rtweetlytics::analytic()` analyses the data to give a resulting dataframe showing total Number of Likes, total Number of Comments, total Number of Retweets, percentage of Positive Sentiments, percentage of Neutral Sentiments, and percentage of Negative Sentiments.
+
+```{r analytic, eval = FALSE}
+results <- rtweetlytics::analytics(tweets_df)
+head(results)
+```
+
+```{r analytic_pic, echo=FALSE, out.width="60%"}
+knitr::include_graphics("../man/figures/analytics.PNG")
+```
+
+
+### 4. Creating plot
+
+In the last and final function we are using `rtweetlytics::plotting()` to further clean the data to extract hastags and plot the top 15 tags.
+
+```{r plotting, eval = FALSE}
+hash_plot <-  rtweetlytics::plotting(tweets_df, text)
+hash_plot
+```
+
+```{r plotting_pic, echo=FALSE, out.width="60%"}
+knitr::include_graphics("../man/figures/plotting.PNG")
+```
