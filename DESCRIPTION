@@ -27,5 +27,6 @@ Depends:
     tidyverse
 Suggests: 
     rmarkdown,
-    knitr
+    knitr,
+    covr
 VignetteBuilder: knitr
