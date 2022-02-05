@@ -8,7 +8,6 @@
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![R-CMD-check](https://github.com/UBC-MDS/rtweetlytics/workflows/R-CMD-check/badge.svg)](https://github.com/UBC-MDS/rtweetlytics/actions)
-[![codecov](https://codecov.io/gh/UBC-MDS/rtweetlytics/branch/main/graph/badge.svg?token=HMlhYsjewr)](https://codecov.io/gh/UBC-MDS/rtweetlytics)
 
 <!-- badges: end -->
 
