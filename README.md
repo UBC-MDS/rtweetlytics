@@ -42,6 +42,10 @@ The development version of rtweetlytics can be installed from
 devtools::install_github("UBC-MDS/rtweetlytics")
 ```
 
+## Usage
+   
+   you can read more about how to use the package in [here](https://ubc-mds.github.io/rtweetlytics/)
+
 ## Features
 
 The package is an assimilation of four independent functions:
