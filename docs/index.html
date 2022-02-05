@@ -71,106 +71,242 @@
 <div class="page-header"><h1 id="rtweetlytics">rtweetlytics<a class="anchor" aria-label="anchor" href="#rtweetlytics"></a>
 </h1></div>
 <!-- badges: start -->
+
 <!-- badges: end -->
-<p>The goal of rtweetlytics is to …</p>
+<ul>
+<li>Authors: Mahsa Sarafrazi, Shiva Shankar Jena, Amir Shojakhani,
+Mahmoodur Rahman</li>
+</ul>
+<p>An R package to extract twitter data, analyzed and plot top occuring
+hashtags</p>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>The goal of rtweetlytics is to extract, analyze and plot twitter
+data. It provides functions to extract twitter data, clean tweets,
+analyze tweets and plot hashtags frequency.</p>
+</div>
+<div class="section level2">
+<h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a>
+</h2>
+<table class="table">
+<colgroup>
+<col width="6%">
+<col width="20%">
+<col width="4%">
+<col width="69%">
+</colgroup>
+<thead><tr class="header">
+<th>Function Name</th>
+<th>Input</th>
+<th>Output</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>get_store()</td>
+<td>
+<code>bearer_token</code>, <code>keyword</code>,
+<code>start_date</code>, <code>end_date</code>
+</td>
+<td>Dataframe</td>
+<td>Extract twitter data and save as <code>.csv</code>
+</td>
+</tr>
+<tr class="even">
+<td>clean_tweets()</td>
+<td>
+<code>PATH</code>,</td>
+<td>String</td>
+<td>Cleans the text in the tweets and returns as new columns in the
+dataframe. The cleaning process includes converting into lower case,
+removal of punctuation, hastags and hastag counts.</td>
+</tr>
+<tr class="odd">
+<td>analytics()</td>
+<td><code>.csv</code></td>
+<td>Dataframe</td>
+<td>Analyze the clean data frame extracted from twitter website, and
+returns a tibble including metrics of analytics.</td>
+</tr>
+<tr class="even">
+<td>plotting()</td>
+<td>
+<code>.csv</code>, <code>col_text</code>
+</td>
+<td>Image</td>
+<td>The plotting function creates a bar-chart plot of most occurring
+hashtags.</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the released version of rtweetlytics from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
+<p>The development version of rtweetlytics can be installed from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rtweetlytics"</span><span class="op">)</span></code></pre></div>
-<p>And the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"UBC-MDS/rtweetlytics"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h2>
-<p>The package tweetytics is a package intended to give insight about a
-topic on Tweeter through some functions. The intention is that a user
-with little knowledge about data science can quickly call a function to
-analyze how the topics and trends are on Twitter. Internally, the
-package uses the official twitter API, stores the data as a .json and
-.csv file, performs data cleaning, data analysis and plotting.</p>
-<p>There are four main functions planned for development and they are
-outlined below. Additional functions may be added if time permits.</p>
+<p>The package is an assimilation of four independent functions:</p>
+<ol style="list-style-type: decimal">
+<li><p><code><a href="reference/get_store.html">get_store()</a></code>: Extract data from twitter through
+calling API and provide csv file as output and create a
+dataframe.</p></li>
+<li><p><code><a href="reference/clean_tweets.html">clean_tweets()</a></code>: Cleans the text in the tweets and
+returns as new columns in the dataframe. The cleaning process includes
+converting into lower case, removal of punctuation, hastags and hastag
+counts.</p></li>
+<li><p><code><a href="reference/analytics.html">analytics()</a></code>: Analyze the clean data frame extracted
+from twitter website, and returns a tibble including metrics of
+analytics.</p></li>
+<li><p><code><a href="reference/plotting.html">plotting()</a></code>: The plotting function creates a
+bar-chart plot of most occurring hashtags.</p></li>
+</ol>
+</div>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
 <div class="section level3">
-<h3 id="function-1-get_store">Function 1: get_store<a class="anchor" aria-label="anchor" href="#function-1-get_store"></a>
+<h3 id="load-the-library">Load the library<a class="anchor" aria-label="anchor" href="#load-the-library"></a>
 </h3>
-<p>Utilizes the official Twitter API to collect data based on a keyword,
-date range and number of results the user requires. The data is then
-stored as a .Json file and a .csv file(optional). The function will also
-give the user the option to return a pandas data frame based on the
-stored files.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rtweetlytics</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="function-2-clean">Function 2: clean<a class="anchor" aria-label="anchor" href="#function-2-clean"></a>
+<h3 id="1-downloading-data-and-creating-dataframe">1. Downloading data and creating dataframe<a class="anchor" aria-label="anchor" href="#1-downloading-data-and-creating-dataframe"></a>
 </h3>
-<p>Takes the created pandas data frame from the get_store() function and
-clean the data frame based on the required_cols, keep_punctuation,
-only_words… arguments entered by the user.</p>
+<p>The first function in our library is the
+<code><a href="reference/get_store.html">rtweetlytics::get_store()</a></code>. This function will require tghe
+developer to obtain bearer token from the twitter API development
+website.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tweets</span> <span class="op">=</span> <span class="fu">rtweetlytics</span><span class="fu">::</span><span class="fu"><a href="reference/get_store.html">get_store</a></span><span class="op">(</span>
+            <span class="va">bearer_token</span>,
+            keyword<span class="op">=</span><span class="st">"vancouver"</span>,
+            start_date<span class="op">=</span><span class="st">"2022-01-12"</span>,
+            end_date<span class="op">=</span><span class="st">"2022-01-17"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                                                                                                                      data.text</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 RT @TrishKurralinga: @Ctl_Alt_Del @PCKJ3627 I am reading a number of teachers are pulling the pin to ensure they don’t bring Omicron home f…</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                                              As Omicron Crests, Booster Shots Are Keeping Americans Out of Hospitals https://t.co/ms03kYYNO8</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   data.author_id                               data.referenced_tweets data.lang</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   2.996786e+09 list(type = "retweeted", id = "1484905705740333059")        en</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   1.297973e+18                                                 NULL        en</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       data.id          data.created_at        data.source data.reply_settings</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1.48504e+18 2022-01-22T23:59:59.000Z Twitter for iPhone            everyone</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 1.48504e+18 2022-01-22T23:59:59.000Z      WordPress.com            everyone</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   data.conversation_id data.in_reply_to_user_id</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1          1.48504e+18                       NA</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2          1.48504e+18                       NA</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   data.public_metrics.retweet_count data.public_metrics.reply_count</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                                 7                               0</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                                 0                               0</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   data.public_metrics.like_count data.public_metrics.quote_count</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                              0                               0</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                              0                               0</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="function-3-perform_analysis">Function 3: perform_analysis<a class="anchor" aria-label="anchor" href="#function-3-perform_analysis"></a>
+<h3 id="2-cleaning-data">2. Cleaning data<a class="anchor" aria-label="anchor" href="#2-cleaning-data"></a>
 </h3>
-<p>Takes the tidy data frame from the clean() function and returns an
-analysis dict report including mean_word_count, most used words,
-mean_likes, most_used_hashtags, word_hashtag_ratio …</p>
+<p>The second function in our library is the
+<code><a href="reference/clean_tweets.html">rtweetlytics::clean_tweets()</a></code>. This function cleans the data
+to gets tweet texts, word counts.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">PATH</span> <span class="op">&lt;-</span> <span class="st">"../output/tweets_response.csv"</span>
+<span class="va">tweets_df</span> <span class="op">&lt;-</span> <span class="fu">rtweetlytics</span><span class="fu">::</span><span class="fu"><a href="reference/clean_tweets.html">clean_tweets</a></span><span class="op">(</span><span class="va">PATH</span>, tokenization<span class="op">=</span><span class="cn">TRUE</span>, word_count<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tweets_df</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   X          source author_id          created_at conversation_id lang</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1 Twitter Web App 282220986 2022-01-17 23:59:59    1.483228e+18   en</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 2   Talon Android 932214247 2022-01-17 23:59:58    1.483228e+18   en</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   reply_settings                                    referenced_tweets</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       everyone [{'type': 'retweeted', 'id': '1483167691825418241'}]</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       everyone [{'type': 'retweeted', 'id': '1482901087296311300'}]</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             id</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1.483228e+18</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 1.483228e+18</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                                                                                                                           text</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 RT @MaximeBernier: Some mainstream media are finally recognizing that the covid hysteria has gone too far and are beginning to question it.…</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 RT @DrJ56013122: I have yet to see a single research article convincingly showing that a booster reduces transmission or reduces the likeli…</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   in_reply_to_user_id retweetcount reply_count like_count quote_count</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                  NA          931           0          0           0</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                  NA           30           0          0           0</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                                                                                                 clean_tweets</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    some mainstream media are finally recognizing that the covid hysteria has gone too far and are beginning to question it</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 i have yet to see a single research article convincingly showing that a booster reduces transmission or reduces the likeli</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                                                                                                 clean_tokens</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    some,mainstream,media,are,finally,recognizing,that,the,covid,hysteria,has,gone,too,far,and,are,beginning,to,question,it</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 i,have,yet,to,see,a,single,research,article,convincingly,showing,that,a,booster,reduces,transmission,or,reduces,the,likeli</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   word_count</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1         20</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         20</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="function-4-plotting">Function 4: plotting<a class="anchor" aria-label="anchor" href="#function-4-plotting"></a>
+<h3 id="3-analyzing-data">3. Analyzing data<a class="anchor" aria-label="anchor" href="#3-analyzing-data"></a>
 </h3>
-<p>Taking both the cleaned data frame from the clean() function and the
-returned dict from the perform_analysis() function, a range of plots
-such as likes_wordcount, likes_hashtags… will be generated and saved as
-files.</p>
+<p>Our third function <code>rtweetlytics::analytic()</code> analyses the
+data to give a resulting dataframe showing total Number of Likes, total
+Number of Comments, total Number of Retweets, percentage of Positive
+Sentiments, percentage of Neutral Sentiments, and percentage of Negative
+Sentiments.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">rtweetlytics</span><span class="fu">::</span><span class="fu"><a href="reference/analytics.html">analytics</a></span><span class="op">(</span><span class="va">tweets_df</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/analytics.png" width="60%"></p>
 </div>
 <div class="section level3">
-<h3 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a>
+<h3 id="4-creating-plot">4. Creating plot<a class="anchor" aria-label="anchor" href="#4-creating-plot"></a>
 </h3>
-<p>•As working with the Twitter API requires a personal ‘bearer token’ a
-user can create their own token and add it as a parameter to the
-get_store() function. •The package also include an example .Json and
-.csv file based on the keyword ‘omicron’.</p>
+<p>In the last and final function we are using
+<code><a href="reference/plotting.html">rtweetlytics::plotting()</a></code> to further clean the data to
+extract hastags and plot the top 15 tags.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">hash_plot</span> <span class="op">&lt;-</span>  <span class="fu">rtweetlytics</span><span class="fu">::</span><span class="fu"><a href="reference/plotting.html">plotting</a></span><span class="op">(</span><span class="va">tweets_df</span>, <span class="va">text</span><span class="op">)</span>
+<span class="va">hash_plot</span></code></pre></div>
+<p><img src="reference/figures/plotting.png" width="60%"></p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
+<h2 id="contributors">Contributors<a class="anchor" aria-label="anchor" href="#contributors"></a>
 </h2>
-<p>• Imports: httr, dplyr, jsonlite, testthat, lubridate, stringr, plyr,
-sentimentr</p>
-<p>• Depends: tidyverse</p>
-</div>
-<div class="section level2">
-<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
-</h2>
-<p>TBD</p>
-</div>
-<div class="section level2">
-<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
-</h2>
-<p>The official documentation is hosted on Read the Docs: <a href="https://" class="external-link uri">https://</a>
-tweetytics.readthedocs.io/en/latest/</p>
-</div>
-<div class="section level2">
-<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
-</h2>
-<p>IWe welcome and recognize all contributions. You can see a list of
-current contributors in the <a href="https://github.com/UBC-MDS/tweetlytics/blob/main/CONTRIBUTING.md" class="external-link">contributors
-tab</a>.</p>
-<ul>
-<li>Amir Shojakhani: @amirshoja</li>
-<li>Shiva Shankar Jena: @shivajena</li>
-<li>Mahmood Rahman: @mahm00d27</li>
-<li>Mahsa Sarafrazi: @mahsasarafrazi</li>
-</ul>
+<p>The names of core development team is listed below.</p>
+<table class="table">
+<thead><tr class="header">
+<th align="center">Name</th>
+<th align="center">GitHub Handle</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">Mahsa Sarafrazi</td>
+<td align="center">@mahsasarafrazi</td>
+</tr>
+<tr class="even">
+<td align="center">Shiva Shankar Jena</td>
+<td align="center">@shivajena</td>
+</tr>
+<tr class="odd">
+<td align="center">Amir Shojakhani</td>
+<td align="center">@amirshoja</td>
+</tr>
+<tr class="even">
+<td align="center">Mahmoodur Rahman</td>
+<td align="center">@mahm00d27</td>
+</tr>
+</tbody>
+</table>
+<p>Please note that this project is released with a Code of Conduct. By
+contributing to this project, one implies to agree to abide by its
+terms.</p>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
 </h2>
-<p><code>rtweetlytics</code> was created by group of students in UBC MDS
-program. It is licensed under the terms of the MIT license.</p>
+<p><code>rtweetlytics</code> is licensed under the terms of the MIT
+license.</p>
 </div>
 </div>
   </div>
@@ -206,7 +342,14 @@ program. It is licensed under the terms of the MIT license.</p>
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></li>
+<li><a href="https://github.com/UBC-MDS/rtweetlytics/actions" class="external-link"><img src="https://github.com/UBC-MDS/rtweetlytics/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/UBC-MDS/rtweetlytics" class="external-link"><img src="https://codecov.io/gh/UBC-MDS/rtweetlytics/branch/main/graph/badge.svg?token=HMlhYsjewr" alt="codecov"></a></li>
+</ul>
+</div>
 
   </div>
 </div>
