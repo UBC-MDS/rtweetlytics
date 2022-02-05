@@ -92,7 +92,7 @@ head(results)
 ```
 
 ```{r analytic_pic, echo=FALSE, out.width="60%"}
-knitr::include_graphics("../man/figures/analytics.PNG")
+knitr::include_graphics("../man/figures/analytics.png")
 ```
 
 
@@ -106,5 +106,5 @@ hash_plot
 ```
 
 ```{r plotting_pic, echo=FALSE, out.width="60%"}
-knitr::include_graphics("../man/figures/plotting.PNG")
+knitr::include_graphics("../man/figures/plotting.png")
 ```
